@@ -24,11 +24,11 @@ const EditTour = () => {
       try {
         let response;
         if (id) {
-          response = await axios.put(`http://localhost:8000/api/v1/tours/${id}`, {
+          response = await axios.put(`https://layag-traveltours-be.herokuapp.com/api/v1/tours/${id}`, {
             name: tourName, duration: tourDuration, maxGroupSize: tourMaxGroupSize, difficulty: tourDifficulty, price: tourPrice, summary: tourSummary, description: tourDescription, imageCover: tourImage
           });
         } else {
-          response = await axios.post('http://localhost:8000/api/v1/tours', {
+          response = await axios.post('https://layag-traveltours-be.herokuapp.com/api/v1/tours', {
             name: tourName, duration: tourDuration, maxGroupSize: tourMaxGroupSize, difficulty: tourDifficulty, price: tourPrice, summary: tourSummary, description: tourDescription, imageCover: tourImage, locations: [], startLocation: ''
           });
         }
@@ -50,7 +50,7 @@ const EditTour = () => {
       const getById = async () => {
         try {
           const response = await axios.get(
-            `http://localhost:8000/api/v1/tours/${id}`
+            `https://layag-traveltours-be.herokuapp.com/api/v1/tours/${id}`
           );
           console.log(response.data.data.tour);
           if (response.data.data.tour) {
