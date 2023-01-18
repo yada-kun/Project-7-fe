@@ -1,16 +1,16 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router';
-import './Tours.scss';
-import Header from '../components/Header';
-import { Link } from 'react-router-dom';
-import { FaStar } from 'react-icons/fa';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams } from "react-router";
+import "./Tours.scss";
+import Header from "../components/Header";
+import { Link } from "react-router-dom";
+import { FaStar } from "react-icons/fa";
 
 const Tour = () => {
   const [tours, setTours] = useState([]);
   const [results, setResult] = useState([]);
   const { id } = useParams();
-  const [select, setSelect] = useState('rating-highest');
+  const [select, setSelect] = useState("rating-highest");
   const [currentLocation, setcurrentLocation] = useState();
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const Tour = () => {
   };
 
   const selectSortHandler = (e) => {
-    if (e.target.value.startsWith('distance') && !currentLocation) return;
+    if (e.target.value.startsWith("distance") && !currentLocation) return;
 
     setSelect(e.target.value);
   };
@@ -57,7 +57,7 @@ const Tour = () => {
 
   const sortBy = (arr, select) => {
     let arrCopy = [...arr];
-    if (select && select.startsWith('distance')) {
+    if (select && select.startsWith("distance")) {
       arrCopy.forEach((el) => {
         el.distance = getDistanceFromLatLonInKm(
           currentLocation.lat,
@@ -67,28 +67,28 @@ const Tour = () => {
         );
       });
     }
-    if (select === 'distance-closest' && currentLocation) {
+    if (select === "distance-closest" && currentLocation) {
       return arrCopy.sort((a, b) => a.distance - b.distance);
     }
-    if (select === 'distance-farthest' && currentLocation) {
+    if (select === "distance-farthest" && currentLocation) {
       return arrCopy.sort((a, b) => b.distance - a.distance);
     }
-    if (select === 'price-lowest') {
+    if (select === "price-lowest") {
       return arr.sort((a, b) => a.price - b.price);
     }
-    if (select === 'price-highest') {
+    if (select === "price-highest") {
       return arr.sort((a, b) => b.price - a.price);
     }
-    if (select === 'duration-shortest') {
+    if (select === "duration-shortest") {
       return arr.sort((a, b) => a.duration - b.duration);
     }
-    if (select === 'duration-longest') {
+    if (select === "duration-longest") {
       return arr.sort((a, b) => b.duration - a.duration);
     }
-    if (select === 'rating-highest') {
+    if (select === "rating-highest") {
       return arr.sort((a, b) => b.ratingsAverage - a.ratingsAverage);
     }
-    if (select === 'rating-lowest') {
+    if (select === "rating-lowest") {
       return arr.sort((a, b) => a.ratingsAverage - b.ratingsAverage);
     }
     return arr;
@@ -98,7 +98,7 @@ const Tour = () => {
     const getTours = async () => {
       try {
         const getData = await axios.get(
-          `https://layag-traveltours-be.herokuapp.com/api/v1/tours/destination/${id.toLowerCase()}?sort=ratingsAverage`
+          `https://layag-backend.onrender.com/api/v1/tours/destination/${id.toLowerCase()}?sort=ratingsAverage`
         );
 
         const imageCovers = getData.data.data.tours.map((el) => el.imageCover);
@@ -120,7 +120,7 @@ const Tour = () => {
         <div className="Tour__hero">
           <div className="Tour__Title">
             <h3>
-              {results.results} Tours Found In{' '}
+              {results.results} Tours Found In{" "}
               <span>{id[0].toUpperCase() + id.substring(1)}</span>
             </h3>
           </div>
@@ -172,8 +172,8 @@ const Tour = () => {
                                   className="star"
                                   color={
                                     ratingValue <= t.ratingsAverage
-                                      ? '#ffc107'
-                                      : '#e4e5e9'
+                                      ? "#ffc107"
+                                      : "#e4e5e9"
                                   }
                                 />
                               </div>
@@ -181,7 +181,7 @@ const Tour = () => {
                           })}
 
                           <span className="TourPackages-list__rate">
-                            {' '}
+                            {" "}
                             {t.ratingsAverage}
                           </span>
                           <span className="TourPackages-list__review">

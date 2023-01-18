@@ -4,18 +4,18 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 
-
 const TourPackages = () => {
   const [tours, setTours] = useState([]);
   const [rating, setRating] = useState(null);
 
-
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const response = await axios.get("https://layag-traveltours-be.herokuapp.com/api/v1/tours");
+        const response = await axios.get(
+          "https://layag-backend.onrender.com/api/v1/tours"
+        );
         setTours(response.data.data.tours);
-        console.log(response.data.data.tours.ratingsAverage)
+        console.log(response.data.data.tours.ratingsAverage);
       } catch (error) {
         console.log(error.message);
       }
@@ -64,9 +64,11 @@ const TourPackages = () => {
                       })}
 
                       <div class="cover"></div>
-                      <span className="TourPackages-list__rate">{tour.ratingsAverage}</span>
+                      <span className="TourPackages-list__rate">
+                        {tour.ratingsAverage}
+                      </span>
                       <span className="TourPackages-list__review">
-                        ({tour.ratingsQuantity}  <span>reviews</span> )
+                        ({tour.ratingsQuantity} <span>reviews</span> )
                       </span>
                     </div>
 

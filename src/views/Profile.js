@@ -1,13 +1,13 @@
-import './Profile.scss';
-import { AiOutlineStar } from 'react-icons/ai';
-import { BsCheck } from 'react-icons/bs';
-import Header from '../components/Header';
-import { isAuthenticated } from '../authentication/Authentication';
-import { Link } from 'react-router-dom';
-import Rating from '../components/Profile Component/Rating';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { format } from 'date-fns';
+import "./Profile.scss";
+import { AiOutlineStar } from "react-icons/ai";
+import { BsCheck } from "react-icons/bs";
+import Header from "../components/Header";
+import { isAuthenticated } from "../authentication/Authentication";
+import { Link } from "react-router-dom";
+import Rating from "../components/Profile Component/Rating";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { format } from "date-fns";
 
 const Profile = () => {
   const {
@@ -17,7 +17,7 @@ const Profile = () => {
   const [showModal, setshowModal] = useState(false);
   const [userTour, setuserTour] = useState([]);
   const [userBooking, setuserBooking] = useState([]);
-  const today = format(new Date(), 'MM/dd/yy');
+  const today = format(new Date(), "MM/dd/yy");
 
   useEffect(() => {
     getData();
@@ -26,7 +26,7 @@ const Profile = () => {
   const getData = async () => {
     try {
       const response = await axios.get(
-        `https://layag-traveltours-be.herokuapp.com/api/v1/bookings/my-bookings/${_id}?sort=-createdAt`
+        `https://layag-backend.onrender.com/api/v1/bookings/my-bookings/${_id}?sort=-createdAt`
       );
       setuserTour(response.data.data.bookings);
       console.log(response.data.data.bookings);
@@ -47,15 +47,15 @@ const Profile = () => {
   return (
     <>
       <Header />
-      <div className='profile'>
-        <div className='profile__section'>
+      <div className="profile">
+        <div className="profile__section">
           <img
-            src='https://cdn-icons-png.flaticon.com/512/64/64572.png'
-            alt='profile default'
+            src="https://cdn-icons-png.flaticon.com/512/64/64572.png"
+            alt="profile default"
           />
           <h4>Edit Photo</h4>
 
-          <div className='profile-details'>
+          <div className="profile-details">
             <div>
               <AiOutlineStar />
               <span>2 reviews</span>
@@ -67,7 +67,7 @@ const Profile = () => {
             </div>
           </div>
 
-          <div className='profile-verifcation'>
+          <div className="profile-verifcation">
             <h3>Account confirmed</h3>
 
             <div>
@@ -89,15 +89,15 @@ const Profile = () => {
             </div>
           </div>
         </div>
-        <div className='profile__information'>
+        <div className="profile__information">
           <h3>Your Profile</h3>
 
-          <div className='credentials'>
+          <div className="credentials">
             <p>Name: {name}</p>
             <p>Email: {email}</p>
             <p>Password: *******</p>
-            <Link to='/updateprofile'>
-              <button style={{ cursor: 'pointer' }}>Update Profile</button>
+            <Link to="/updateprofile">
+              <button style={{ cursor: "pointer" }}>Update Profile</button>
             </Link>
           </div>
 
@@ -152,9 +152,9 @@ const Profile = () => {
         </div>
       </div>
 
-      <div className='Profile-History'>
+      <div className="Profile-History">
         <h3>Tours</h3>
-        <div className='Profile-History-Content'>
+        <div className="Profile-History-Content">
           <table>
             <thead>
               <tr>
@@ -169,8 +169,8 @@ const Profile = () => {
             <tbody>
               {userTour &&
                 userTour.map((t) => {
-                  let startDate = format(new Date(t.tourStart), 'MM/dd/yy');
-                  let endDate = format(new Date(t.tourEnd), 'MM/dd/yy');
+                  let startDate = format(new Date(t.tourStart), "MM/dd/yy");
+                  let endDate = format(new Date(t.tourEnd), "MM/dd/yy");
                   return (
                     <tr>
                       <td>
@@ -178,8 +178,8 @@ const Profile = () => {
                       </td>
                       <td>{t.tour.name}</td>
                       <td>
-                        &#8369;{' '}
-                        {t.price.toLocaleString('en-us', {
+                        &#8369;{" "}
+                        {t.price.toLocaleString("en-us", {
                           minimumFractionDigits: 2,
                         })}
                       </td>
@@ -187,9 +187,9 @@ const Profile = () => {
                       <td>{endDate}</td>
                       <td>
                         {today > endDate && !t.isReviewed ? (
-                          <div className='Profile-History__actions'>
+                          <div className="Profile-History__actions">
                             <button
-                              type='button'
+                              type="button"
                               onClick={() => {
                                 onclick(t);
                               }}
@@ -212,7 +212,7 @@ const Profile = () => {
       </div>
 
       {showModal && (
-        <div className='Rating-modal'>
+        <div className="Rating-modal">
           <Rating onChange={onChange} userBooking={userBooking} userID={_id} />
         </div>
       )}
