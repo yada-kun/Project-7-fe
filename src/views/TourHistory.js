@@ -40,7 +40,7 @@ const TourHistory = () => {
     <div className="Tour-History">
       <h3>Tours</h3>
       <Link to="/addTour">
-        <button type="button">Add Tour+</button>
+        <button type="button">Add Tour</button>
       </Link>
 
       {/* Delete Modal */}
